@@ -1,0 +1,410 @@
+﻿@model EmployeeTaskTracker.Models.Employee
+
+@{
+    ViewData["Title"] = "Create Employee";
+}
+
+<div class="container mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <h3 class="mb-0">
+                            Create Employee
+                        </h3>
+
+                        <a asp-action="Index"
+                               class="btn btn-light btn-sm">
+                            Back to List
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form asp-action="Create"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        <div asp-validation-summary="All"
+                             class="alert">
+                        </div>
+
+                        <div class="row">
+
+                            <!-- First Name -->
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="FirstName"
+                                       class="form-label fw-semibold">
+                                </label>
+
+                                <input asp-for="FirstName"
+                                       class="form-control"
+                                       placeholder="Enter First Name" />
+
+                                <span asp-validation-for="FirstName"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="LastName"
+                                       class="form-label fw-semibold">
+                                </label>
+
+                                <input asp-for="LastName"
+                                       class="form-control"
+                                       placeholder="Enter Last Name" />
+
+                                <span asp-validation-for="LastName"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="Email"
+                                       class="form-label fw-semibold">
+                                </label>
+
+                                <input asp-for="Email"
+                                       type="email"
+                                       class="form-control"
+                                       placeholder="example@email.com" />
+
+                                <span asp-validation-for="Email"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="PhoneNumber"
+                                       class="form-label fw-semibold">
+                                </label>
+
+                                <input asp-for="PhoneNumber"
+                                       class="form-control"
+                                       placeholder="10-digit phone number" />
+
+                                <span asp-validation-for="PhoneNumber"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                            <!-- Age -->
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="Age"
+                                       class="form-label fw-semibold">
+                                </label>
+
+                                <input asp-for="Age"
+                                       type="number"
+                                       min="18"
+                                       max="60"
+                                       class="form-control" />
+
+                                <span asp-validation-for="Age"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                            <!-- DOB -->
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="DOB"
+                                       class="form-label fw-semibold">
+                                </label>
+
+                                <input asp-for="DOB"
+                                       type="date"
+                                       class="form-control" />
+
+                                <span asp-validation-for="DOB"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Gender
+                                </label>
+
+                                <div>
+
+                                    <div class="form-check form-check-inline">
+
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               asp-for="Gender"
+                                               value="Male" />
+
+                                        <label class="form-check-label">
+                                            Male
+                                        </label>
+
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               asp-for="Gender"
+                                               value="Female" />
+
+                                        <label class="form-check-label">
+                                            Female
+                                        </label>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Hobbies -->
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Hobbies
+                                </label>
+
+                                <div class="form-check">
+
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           name="Hobbies"
+                                           value="Reading" />
+
+                                    <label class="form-check-label">
+                                        Reading
+                                    </label>
+
+                                </div>
+
+                                <div class="form-check">
+
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           name="Hobbies"
+                                           value="Sports" />
+
+                                    <label class="form-check-label">
+                                        Sports
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Favorite Color -->
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Favorite Color
+                                </label>
+
+                                <div class="d-flex align-items-center gap-3">
+
+                                    <input asp-for="FavoriteColor"
+                                           type="color"
+                                           class="form-control form-control-color"
+                                           id="colorPicker" />
+
+                                    <span id="colorCode"
+                                          class="fw-bold">
+                                        #000000
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Skill Range -->
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Skill Level
+                                </label>
+
+                                <div class="d-flex align-items-center gap-3">
+
+                                    <input asp-for="SkillRange"
+                                           type="range"
+                                           min="1"
+                                           max="100"
+                                           class="form-range"
+                                           id="skillRange" />
+
+                                    <span id="skillValue"
+                                          class="badge bg-primary fs-6">
+
+                                        @(Model?.SkillRange ?? 50)%
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <!-- File Upload -->
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Upload File
+                                </label>
+
+                                <input type="file"
+                                       name="EmployeeFile"
+                                       class="form-control"
+                                       id="fileUpload" />
+
+                                <small id="fileName"
+                                       class="text-muted">
+                                    No file selected
+                                </small>
+
+                            </div>
+
+                            <!-- Password -->
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="Password"
+                                       class="form-label fw-semibold">
+                                </label>
+
+                                <input asp-for="Password"
+                                       type="password"
+                                       class="form-control"
+                                       placeholder="Enter Password" />
+
+                                <span asp-validation-for="Password"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <hr />
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-success px-4">
+
+                                Save Employee
+
+                            </button>
+
+                            <a asp-action="Index"
+                                   class="btn btn-outline-secondary px-4">
+
+                                Cancel
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Skill Range
+
+            const skillRange =
+                document.getElementById("skillRange");
+
+            const skillValue =
+                document.getElementById("skillValue");
+
+            skillValue.innerText =
+                skillRange.value + "%";
+
+            skillRange.addEventListener("input", function () {
+
+                skillValue.innerText =
+                    this.value + "%";
+
+            });
+
+            // Color Picker
+
+            const colorPicker =
+                document.getElementById("colorPicker");
+
+            const colorCode =
+                document.getElementById("colorCode");
+
+            colorCode.innerText =
+                colorPicker.value;
+
+            colorPicker.addEventListener("input", function () {
+
+                colorCode.innerText =
+                    this.value;
+
+            });
+
+            // File Upload
+
+            const fileUpload =
+                document.getElementById("fileUpload");
+
+            const fileName =
+                document.getElementById("fileName");
+
+            fileUpload.addEventListener("change", function () {
+
+                fileName.innerText =
+                    this.files.length > 0
+                    ? this.files[0].name
+                    : "No file selected";
+
+            });
+
+        });
+
+    </script>
+}

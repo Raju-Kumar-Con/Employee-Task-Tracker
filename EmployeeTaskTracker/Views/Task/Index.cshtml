@@ -1,0 +1,181 @@
+﻿@model List<EmployeeTaskTracker.Models.EmployeeTask>
+
+@using EmployeeTaskTracker.Models
+
+@{
+    ViewData["Title"] = "Task List";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Task Management</h2>
+
+        <div>
+            <a asp-controller="Task"
+                   asp-action="Create"
+                   class="btn btn-primary me-2">
+                Add Task
+            </a>
+
+            <a asp-controller="Task"
+                   asp-action="ExportExcel"
+                   class="btn btn-success">
+                Export Excel
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-light">
+            <div class="row align-items-center">
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">
+                        Filter By Status
+                    </label>
+
+                    <select id="statusFilter"
+                            class="form-select"
+                            onchange="filterTasks()">
+
+                        <option value="">All Tasks</option>
+                        <option value="Pending">Pending</option>
+                        <option value="InProgress">In Progress</option>
+                        <option value="Completed">Completed</option>
+
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Deadline</th>
+                            <th width="180">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (Model.Any())
+                        {
+                            @foreach (var t in Model)
+                            {
+                                <tr>
+
+                                    <td class="fw-semibold">
+                                        @t.Title
+                                    </td>
+
+                                    <td>
+                                        @t.Description
+                                    </td>
+
+                                    <td>
+                                        @if (t.Status == TaskState.Pending)
+                                        {
+                                            <span class="badge bg-danger">
+                                                Pending
+                                            </span>
+                                        }
+                                        else if (t.Status == TaskState.InProgress)
+                                        {
+                                            <span class="badge bg-warning text-dark">
+                                                In Progress
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-success">
+                                                Completed
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @t.Deadline.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        @if (t.Status != TaskState.Completed)
+                                        {
+                                            <button class="btn btn-success btn-sm"
+                                                    onclick="updateStatus(@t.Id,'Completed')">
+                                                Mark Complete
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-success fw-semibold">
+                                                Completed
+                                            </span>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">
+                                    No tasks found.
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    function updateStatus(id, status) {
+
+    $.ajax({
+    url: '/Task/UpdateStatus',
+    type: 'POST',
+    data: {
+    taskId: id,
+    status: status
+    },
+    success: function () {
+    location.reload();
+    },
+    error: function () {
+    alert('Something went wrong.');
+    }
+    });
+    }
+
+    function filterTasks() {
+
+    var val = $('#statusFilter').val();
+
+    window.location.href =
+    "/Task?statusFilter=" + val;
+    }
+
+</script>

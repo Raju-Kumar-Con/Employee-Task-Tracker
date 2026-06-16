@@ -1,0 +1,249 @@
+﻿@model EmployeeTaskTracker.Models.Employee
+
+@{
+    ViewData["Title"] = "Edit Employee";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-warning text-dark">
+            <h3>Edit Employee</h3>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Edit"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                <input type="hidden" asp-for="Id" />
+
+                <div asp-validation-summary="All"
+                     class="text-danger mb-3">
+                </div>
+
+                <!-- First Name -->
+                <div class="mb-3">
+
+                    <label asp-for="FirstName"></label>
+
+                    <input asp-for="FirstName"
+                           class="form-control"
+                           required
+                           minlength="2" />
+
+                    <span asp-validation-for="FirstName"
+                          class="text-danger"></span>
+
+                </div>
+
+                <!-- Last Name -->
+                <div class="mb-3">
+
+                    <label asp-for="LastName"></label>
+
+                    <input asp-for="LastName"
+                           class="form-control"
+                           required />
+
+                    <span asp-validation-for="LastName"
+                          class="text-danger"></span>
+
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+
+                    <label asp-for="Email"></label>
+
+                    <input asp-for="Email"
+                           type="email"
+                           class="form-control"
+                           required />
+
+                    <span asp-validation-for="Email"
+                          class="text-danger"></span>
+
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-3">
+
+                    <label asp-for="PhoneNumber"></label>
+
+                    <input asp-for="PhoneNumber"
+                           class="form-control"
+                           pattern="[0-9]{10}"
+                           placeholder="10 digit number" />
+
+                    <span asp-validation-for="PhoneNumber"
+                          class="text-danger"></span>
+
+                </div>
+
+                <!-- Age -->
+                <div class="mb-3">
+
+                    <label asp-for="Age"></label>
+
+                    <input asp-for="Age"
+                           type="number"
+                           min="18"
+                           max="60"
+                           class="form-control" />
+
+                    <span asp-validation-for="Age"
+                          class="text-danger"></span>
+
+                </div>
+
+                <!-- Gender -->
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Gender
+                    </label>
+
+                    <div>
+
+                        <input type="radio"
+                               asp-for="Gender"
+                               value="Male" /> Male
+
+                        <input type="radio"
+                               asp-for="Gender"
+                               value="Female"
+                               class="ms-3" /> Female
+
+                        <input type="radio"
+                               asp-for="Gender"
+                               value="Other"
+                               class="ms-3" /> Other
+
+                    </div>
+
+                    <span asp-validation-for="Gender"
+                          class="text-danger"></span>
+
+                </div>
+
+                <!-- Hobbies -->
+                <div class="mb-3">
+
+                    <label>Hobbies</label>
+
+                    <div>
+
+                        <input type="checkbox"
+                               name="Hobbies"
+                               value="Reading"
+                        @(Model.Hobbies?.Contains("Reading") == true ? "checked" : "") />
+                        Reading
+
+                        <input type="checkbox"
+                               name="Hobbies"
+                               value="Sports"
+                               class="ms-3"
+                        @(Model.Hobbies?.Contains("Sports") == true ? "checked" : "") />
+                        Sports
+
+                    </div>
+
+                </div>
+
+                <!-- DOB -->
+                <div class="mb-3">
+
+                    <label asp-for="DOB"></label>
+
+                    <input asp-for="DOB"
+                           type="date"
+                           class="form-control" />
+
+                    <span asp-validation-for="DOB"
+                          class="text-danger"></span>
+
+                </div>
+
+                <!-- File Upload -->
+                <div class="mb-3">
+
+                    <label>Upload File</label>
+
+                    <input type="file"
+                           name="EmployeeFile"
+                           class="form-control" />
+
+                </div>
+
+                <!-- Favorite Color -->
+                <div class="mb-3">
+
+                    <label>Favorite Color</label>
+
+                    <input asp-for="FavoriteColor"
+                           type="color"
+                           class="form-control form-control-color" />
+
+                </div>
+
+                <!-- Skill Range -->
+                <div class="mb-3">
+
+                    <label>Skill Range</label>
+
+                    <input asp-for="SkillRange"
+                           type="range"
+                           min="1"
+                           max="100"
+                           class="form-range" />
+
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+
+                    <label asp-for="Password"></label>
+
+                    <input asp-for="Password"
+                           type="password"
+                           class="form-control"
+                           minlength="6" />
+
+                    <span asp-validation-for="Password"
+                          class="text-danger"></span>
+
+                </div>
+
+                <!-- Buttons -->
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    Update Employee
+
+                </button>
+
+                <a asp-action="Index"
+                       class="btn btn-secondary">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync(
+        "_ValidationScriptsPartial");
+    }
+}
